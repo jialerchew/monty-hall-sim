@@ -64,6 +64,7 @@ def batch_trial(ntrials, switch_door, ndoors=3):
         print('Must be at least 3 doors!')
         return
 
+    # Run the simulation ntrial times and sum the number of wins
     nwins = 0
     for i in range(ntrials):
         if run_trial(switch_door,ndoors):
@@ -73,7 +74,20 @@ def batch_trial(ntrials, switch_door, ndoors=3):
           f"Switching       : {switch_door}\n"
           f"Win probability : {nwins/ntrials:.2%}\n")
 
-for i in range(3,11):
+"""
+Edit parameters here
+min_doors   : int
+    Minimum number of doors to start the simulation with
+max_doors   : int
+    Maximum number of doors before stopping the simulation
+iters       : int
+    Number of iterations for each door/switch combination
+"""
+min_doors = 3
+max_doors = 10
+iters = 5000000
+
+for doornum in range(min_doors,max_doors+1):
     print(f"Number of doors : {i}\n")
-    batch_trial(5000000,False,i)
-    batch_trial(5000000,True,i)
+    batch_trial(iters,False,doornum)
+    batch_trial(iters,True,doornum)
